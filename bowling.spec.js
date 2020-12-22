@@ -152,7 +152,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(31);
     });
 
-    xtest("a spare in the last frame gets a one roll bonus that is counted once", () => {
+    test("a spare in the last frame gets a one roll bonus that is counted once", () => {
       const rolls = [
         0,
         0,
@@ -272,7 +272,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(20);
     });
 
-    test("strikes with the two roll bonus do not get bonus rolls", () => {
+    xtest("strikes with the two roll bonus do not get bonus rolls", () => {
       const rolls = [
         0,
         0,

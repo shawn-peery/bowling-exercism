@@ -80,11 +80,12 @@ export class Bowling {
       if (sum === 10) {
         if (this.frames.length >= 10) {
           if (!this.isFillRoll) {
-            const endGameStrikeObject = {
+            const endGameSpareObject = {
               endGame: true,
-              rollsToAdd: 2,
+              rollsToAdd: 1,
             };
-            this.awaitingTotals.push(endGameStrikeObject);
+            this.awaitingTotals.push(endGameSpareObject);
+            this.isFillRoll = true;
           }
         } else {
           const spareObject = {
