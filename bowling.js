@@ -118,6 +118,14 @@ export class Bowling {
     this.index += 1;
   }
   handleAwaitingTotals(roll) {
+    if (this.rolls.length == 2) {
+      const sum = this.rolls.reduce((sumA, roll) => (sumA += roll));
+
+      if (sum > 10) {
+        throw new Error("Pin count exceeds pins on the lane");
+      }
+    }
+
     const updatingAwaitingTotals = [];
     this.awaitingTotals.forEach((awaitingTotal) => {
       const endGame = awaitingTotal.endGame;
@@ -126,13 +134,16 @@ export class Bowling {
       this.total += roll;
       rollsToAdd -= 1;
       if (rollsToAdd <= 0) {
-        this.toSetNotFillRoll = true;
+        if (endGame) {
+          this.toSetNotFillRoll = true;
+        }
         return;
       }
       const updatedObject = { ...awaitingTotal };
       updatedObject.rollsToAdd = rollsToAdd;
       updatingAwaitingTotals.push(updatedObject);
     });
+
     this.awaitingTotals = updatingAwaitingTotals;
   }
 }

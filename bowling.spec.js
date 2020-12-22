@@ -152,7 +152,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(31);
     });
 
-    test("a spare in the last frame gets a one roll bonus that is counted once", () => {
+    xtest("a spare in the last frame gets a one roll bonus that is counted once", () => {
       const rolls = [
         0,
         0,
@@ -343,7 +343,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(300);
     });
   });
-  //xtest worked
+  //xxtest worked
   describe("Check game rules.", () => {
     xtest("rolls can not score negative points", () => {
       const bowling = new Bowling();
@@ -441,7 +441,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(26);
     });
 
-    xtest("the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike", () => {
+    test("the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike", () => {
       const rolls = [
         0,
         0,
