@@ -1,9 +1,4 @@
-//
-// This is only a SKELETON file for the 'Bowling' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
-// import { set } from "core-js/fn/dict";
+import { timingSafeEqual } from "crypto";
 
 export class Bowling {
   constructor() {
@@ -12,96 +7,38 @@ export class Bowling {
     this.awaitingTotals = [];
     this.rolls = [];
     this.total = 0;
-    this.totalIsFinal = false;
     this.frames = [];
-    this.index = 0;
+    this.totalIsFinal = false;
     this.handleFrameEnd = this.handleFrameEnd.bind(this);
     this.handleAwaitingTotals = this.handleAwaitingTotals.bind(this);
+    this.handleStrike = this.handleStrike.bind(this);
+    this.handleSecondRoll = this.handleSecondRoll.bind(this);
+    this.handleSpare = this.handleSpare.bind(this);
+    this.validateInput = this.validateInput.bind(this);
   }
   roll(roll) {
-    //checks if a roll is negative
-    if (roll < 0) {
-      throw new Error("Negative roll is invalid");
-    }
-    //checked if more then 10
-    if (roll >= 11) {
-      throw new Error("Pin count exceeds pins on the lane");
-    }
-    // console.log("length", this.frames.length)
-    //end of game score
-    if (this.frames.length >= 10 && !this.isFillRoll) {
-      throw new Error("Cannot roll after game is over");
-    }
-    //  console.log(roll)
+    // Validates input (not negative. Logical)
+    this.validateInput(roll);
+
+    // Pushes roll to rolls array
     this.rolls.push(roll);
-    this.handleAwaitingTotals(roll);
 
+    // Handles any awaiting totals from strikes/spares
+    const handleFillFunction = this.handleAwaitingTotals(roll);
+
+    // Handles strikes
     if (roll === 10 && this.rolls.length === 1) {
-      //reset rolls
-      // if(rolls.length === 10){
-      //   frames.push(rolls)
-
-      // }
-      //checking if its a strike
-      this.frames.push(roll);
-      this.handleFrameEnd();
-      if (this.frames.length >= 10) {
-        if (!this.isFillRoll) {
-          const endGameStrikeObject = {
-            endGame: true,
-            rollsToAdd: 2,
-          };
-          this.awaitingTotals.push(endGameStrikeObject);
-          this.isFillRoll = true;
-          this.total += roll;
-        }
-      } else {
-        const strikeObject = {
-          strike: true,
-          rollsToAdd: 2,
-        };
-        this.awaitingTotals.push(strikeObject);
-        this.total += roll;
-      }
-      // console.log(strikeObject)
+      this.handleStrike(roll);
     }
 
-    //checking if its a second roll
-    if (this.rolls.length === 2 && !this.isFillRoll) {
-      const sum = this.rolls[0] + roll;
-      if (sum > 10) {
-        throw new Error("Pin count exceeds pins on the lane");
-      }
-      this.frames.push(sum);
-      this.rolls = [];
-      this.index += 1;
-
-      //check if its a spare
-      if (sum === 10) {
-        if (this.frames.length >= 10) {
-          if (!this.isFillRoll) {
-            const endGameSpareObject = {
-              endGame: true,
-              rollsToAdd: 1,
-            };
-            this.awaitingTotals.push(endGameSpareObject);
-            this.isFillRoll = true;
-          }
-        } else {
-          const spareObject = {
-            strike: false,
-            rollsToAdd: 1,
-          };
-          this.awaitingTotals.push(spareObject);
-        }
-        // console.log(spareObject)
-      }
-      this.total += sum;
+    // Handles spares & open frames
+    if (this.rolls.length === 2 && !this.isFillRoll && !this.totalIsFinal) {
+      this.handleSecondRoll(roll);
     }
-    // console.log("score", this.total)
 
-    if (this.toSetNotFillRoll) {
-      this.isFillRoll = false;
+    // Used to set isFillRoll afterwards
+    if (handleFillFunction) {
+      handleFillFunction();
     }
   }
 
@@ -120,8 +57,81 @@ export class Bowling {
   }
   handleFrameEnd() {
     this.rolls = [];
-    this.index += 1;
   }
+
+  validateInput(roll) {
+    //checks if a roll is negative
+    if (roll < 0) {
+      throw new Error("Negative roll is invalid");
+    }
+    //checks if a roll is more then 10
+    if (roll >= 11) {
+      throw new Error("Pin count exceeds pins on the lane");
+    }
+    //Checks if the game is over (Frames are 10 or greater and isFillRoll is false)
+    if (this.frames.length >= 10 && !this.isFillRoll) {
+      throw new Error("Cannot roll after game is over");
+    }
+  }
+
+  handleStrike(roll) {
+    this.frames.push(roll);
+    this.handleFrameEnd();
+
+    const strikeObject = {
+      strike: true,
+      rollsToAdd: 2,
+    };
+
+    if (this.frames.length >= 10) {
+      if (!this.isFillRoll) {
+        const endGameStrikeObject = { ...strikeObject, endGame: true };
+        this.awaitingTotals.push(endGameStrikeObject);
+        this.isFillRoll = true;
+        this.total += roll;
+      }
+    } else {
+      this.awaitingTotals.push(strikeObject);
+      this.total += roll;
+    }
+  }
+
+  handleSecondRoll(roll) {
+    const sum = this.rolls[0] + roll;
+    if (sum > 10) {
+      throw new Error("Pin count exceeds pins on the lane");
+    }
+    this.frames.push(sum);
+    this.rolls = [];
+    this.index += 1;
+
+    //check if its a spare
+    if (sum === 10) {
+      this.handleSpare(roll);
+    }
+    this.total += sum;
+  }
+
+  handleSpare(roll) {
+    if (this.frames.length >= 10) {
+      if (!this.isFillRoll) {
+        const endGameSpareObject = {
+          endGame: true,
+          rollsToAdd: 1,
+        };
+        this.awaitingTotals.push(endGameSpareObject);
+        this.isFillRoll = true;
+      }
+    } else {
+      const spareObject = {
+        strike: false,
+        rollsToAdd: 1,
+      };
+      this.awaitingTotals.push(spareObject);
+    }
+    // console.log(spareObject)
+  }
+
   handleAwaitingTotals(roll) {
     if (this.rolls.length == 2) {
       const sum = this.rolls.reduce((sumA, roll) => (sumA += roll));
@@ -132,6 +142,7 @@ export class Bowling {
     }
 
     const updatingAwaitingTotals = [];
+    let isFillRoll = this.isFillRoll;
     this.awaitingTotals.forEach((awaitingTotal) => {
       const endGame = awaitingTotal.endGame;
 
@@ -140,7 +151,8 @@ export class Bowling {
       rollsToAdd -= 1;
       if (rollsToAdd <= 0) {
         if (endGame) {
-          this.toSetNotFillRoll = true;
+          this.isFillRoll = false;
+          this.totalIsFinal = true;
         }
         return;
       }
@@ -150,5 +162,11 @@ export class Bowling {
     });
 
     this.awaitingTotals = updatingAwaitingTotals;
+
+    // if (isFillRoll !== this.isFillRoll) {
+    //   return () => {
+    //     this.isFillRoll = isFillRoll;
+    //   };
+    // }
   }
 }
