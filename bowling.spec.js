@@ -122,7 +122,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(16);
     });
 
-    xtest("consecutive spares each get a one roll bonus", () => {
+    test("consecutive spares each get a one roll bonus", () => {
       const rolls = [
         5,
         5,
