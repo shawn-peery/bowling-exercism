@@ -111,6 +111,11 @@ export class Bowling {
     if (this.frames.length < 10) {
       throw new Error("Score cannot be taken until the end of the game");
     }
+
+    if (this.awaitingTotals.length > 0) {
+      throw new Error("Score cannot be taken until the end of the game");
+    }
+
     return this.total;
   }
   handleFrameEnd() {
