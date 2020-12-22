@@ -92,7 +92,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(10);
     });
 
-    xtest("points scored in the roll after a spare are counted twice", () => {
+    test("points scored in the roll after a spare are counted twice", () => {
       const rolls = [
         6,
         4,
