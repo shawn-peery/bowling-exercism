@@ -1,1 +1,6 @@
 node_modules
+.exercism
+.vscode
+.eslintrc
+.npmrc
+babel.config.js
