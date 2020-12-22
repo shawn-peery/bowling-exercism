@@ -598,7 +598,7 @@ describe("Bowling", () => {
       }).toThrow(new Error("Score cannot be taken until the end of the game"));
     });
 
-    xtest("bonus roll for a spare in the last frame must be rolled before score can be calculated", () => {
+    test("bonus roll for a spare in the last frame must be rolled before score can be calculated", () => {
       const rolls = [
         0,
         0,
@@ -630,7 +630,7 @@ describe("Bowling", () => {
       }).toThrow(new Error("Score cannot be taken until the end of the game"));
     });
 
-    xtest(" cannot roll after bonus roll for spare", () => {
+    test(" cannot roll after bonus roll for spare", () => {
       const rolls = [
         0,
         0,
@@ -663,7 +663,7 @@ describe("Bowling", () => {
       }).toThrow(new Error("Cannot roll after game is over"));
     });
 
-    xtest("cannot roll after bonus rolls for strike", () => {
+    test("cannot roll after bonus rolls for strike", () => {
       const rolls = [
         0,
         0,
