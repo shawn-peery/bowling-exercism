@@ -1,110 +1,54 @@
-# Bowling
+# Information
 
-Score a bowling game.
+This is a collaborative exercism which has been revised a bit.
 
-Bowling is a game where players roll a heavy ball to knock down pins
-arranged in a triangle. Write code to keep track of the score
-of a game of bowling.
+# Submitting Solution
 
-## Scoring Bowling
+## Downloading
 
-The game consists of 10 frames. A frame is composed of one or two ball
-throws with 10 pins standing at frame initialization. There are three
-cases for the tabulation of a frame.
+If you were apart of the collaborative exercism, first download the bowling project from exercism.io by running the command:
 
-* An open frame is where a score of less than 10 is recorded for the
-  frame. In this case the score for the frame is the number of pins
-  knocked down.
-
-* A spare is where all ten pins are knocked down by the second
-  throw. The total value of a spare is 10 plus the number of pins
-  knocked down in their next throw.
-
-* A strike is where all ten pins are knocked down by the first
-  throw. The total value of a strike is 10 plus the number of pins
-  knocked down in the next two throws. If a strike is immediately
-  followed by a second strike, then the value of the first strike
-  cannot be determined until the ball is thrown one more time.
-
-Here is a three frame example:
-
-| Frame 1         | Frame 2       | Frame 3                |
-| :-------------: |:-------------:| :---------------------:|
-| X (strike)      | 5/ (spare)    | 9 0 (open frame)       |
-
-Frame 1 is (10 + 5 + 5) = 20
-
-Frame 2 is (5 + 5 + 9) = 19
-
-Frame 3 is (9 + 0) = 9
-
-This means the current running total is 48.
-
-The tenth frame in the game is a special case. If someone throws a
-strike or a spare then they get a fill ball. Fill balls exist to
-calculate the total of the 10th frame. Scoring a strike or spare on
-the fill ball does not give the player more fill balls. The total
-value of the 10th frame is the total number of pins knocked down.
-
-For a tenth frame of X1/ (strike and a spare), the total value is 20.
-
-For a tenth frame of XXX (three strikes), the total value is 30.
-
-## Requirements
-
-Write code to keep track of the score of a game of bowling. It should
-support two operations:
-
-* `roll(pins : int)` is called each time the player rolls a ball.  The
-  argument is the number of pins knocked down.
-* `score() : int` is called only at the very end of the game.  It
-  returns the total score for that game.
-
-## Setup
-
-Go through the setup instructions for Javascript to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/javascript/installation](https://exercism.io/tracks/javascript/installation)
-
-## Requirements
-
-Please `cd` into exercise directory before running all below commands.
-
-Install assignment dependencies:
-
-```bash
-$ npm install
+```
+exercism download --exercise=bowling --track=javascript
 ```
 
-## Making the test suite pass
+This will create a new folder at "/Users/Exercism/javascript/bowling". Open this new 'bowling' folder inside of Visual Studio Code.
 
-Execute the tests with:
+Now at this point, we need to download the code from this repository. Simply download this repository with the green button at the top right by either downloading as zip or copying the HTTPS or SSH link and using the command:
 
-```bash
-$ npm test
+```
+git clone <link-here>
 ```
 
-In the test suites all tests but the first have been skipped.
+Then once you have this code downloaded somewhere, copy the code inside of bowling.js from this repository to the bowling.js inside of your 'bowling' exercism folder.
 
-Once you get a test passing, you can enable the next one by changing `xtest` to
-`test`.
+Once you have made sure everything looks correct, go to the bowling.spec.js and make sure you enable all the tests by replacing all occurrences of "xtest" with "test". You may also simply copy the bowling.spec.js from this repository to the bowling.spec.js file in your exercism folder.
 
+## Testing
 
-## Submitting Solutions
+Once you have everything set up from the previous setup, create a new terminal and run:
 
-Once you have a solution ready, you can submit it using:
+```
+npm run test
+```
 
-```bash
+This will run all of the tests provided by exercism for this project.
+If you see in green text 30 passed near the bottom of the command, then the project is working correctly. Please make sure to review the code and research sections of the code you are not familiar with.
+
+## Submitting
+
+Once you are confident all the tests are passing, open a command line, and execute this command:
+
+```
 exercism submit bowling.js
 ```
 
-## Submitting Incomplete Solutions
+This will submit your current code to exercism.
 
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+After completing this command, a link to your submission will be printed in the terminal.
 
-## Exercise Source Credits
+You can do CTRL+CLICK on the link to open it with Visual Studio Code. It may prompt you if you are sure you want to go to this link. Simply confirm the dialog.
 
-The Bowling Game Kata at but UncleBob [http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)
+Once you reach the submission page, you may see on the right side a button labeled something similar to "Confirm your Submission". Pressing that and filling out the remaining prompts will complete your submission.
 
+If you do not see a "Confirm your Submission" perhaps someone is reviewing your submission. Simply check back occasionally until you can submit.
