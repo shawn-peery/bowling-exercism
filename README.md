@@ -6,7 +6,7 @@ This is a collaborative exercism which has been revised a bit.
 
 ## Downloading
 
-If you were apart of the collaborative exercism, first download the bowling project from exercism.io by running the command:
+First download the bowling project from exercism.io by running the command:
 
 ```
 exercism download --exercise=bowling --track=javascript
