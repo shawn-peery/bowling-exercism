@@ -84,7 +84,7 @@ export class Bowling {
     };
 
     if (this.frames.length >= 10) {
-      if (!this.isFillRoll) {
+      if (!this.isFillRoll && !this.totalIsFinal) {
         const endGameStrikeObject = { ...strikeObject, endGame: true };
         this.awaitingTotals.push(endGameStrikeObject);
         this.isFillRoll = true;
