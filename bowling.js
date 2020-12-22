@@ -45,7 +45,7 @@ export class Bowling {
       //checking if its a strike
       this.frames.push(roll);
       this.handleFrameEnd();
-      if (this.frames.length === 10) {
+      if (this.frames.length >= 10) {
         if (!this.isFillRoll) {
           const endGameStrikeObject = {
             endGame: true,

@@ -2,7 +2,7 @@ import { Bowling } from "./bowling";
 
 describe("Bowling", () => {
   describe("Check game can be scored correctly.", () => {
-    test("should be able to score a game with all zeros", () => {
+    xtest("should be able to score a game with all zeros", () => {
       const rolls = [
         0,
         0,
@@ -32,7 +32,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(0);
     });
 
-    test("should be able to score a game with no strikes or spares", () => {
+    xtest("should be able to score a game with no strikes or spares", () => {
       const rolls = [
         3,
         6,
@@ -62,7 +62,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(90);
     });
 
-    test("a spare followed by zeros is worth ten points", () => {
+    xtest("a spare followed by zeros is worth ten points", () => {
       const rolls = [
         6,
         4,
@@ -92,7 +92,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(10);
     });
 
-    test("points scored in the roll after a spare are counted twice", () => {
+    xtest("points scored in the roll after a spare are counted twice", () => {
       const rolls = [
         6,
         4,
@@ -122,7 +122,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(16);
     });
 
-    test("consecutive spares each get a one roll bonus", () => {
+    xtest("consecutive spares each get a one roll bonus", () => {
       const rolls = [
         5,
         5,
@@ -192,7 +192,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(10);
     });
 
-    test("points scored in the two rolls after a strike are counted twice as a bonus", () => {
+    xtest("points scored in the two rolls after a strike are counted twice as a bonus", () => {
       const rolls = [10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => {
@@ -201,7 +201,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(26);
     });
 
-    test("consecutive strikes each get the two roll bonus", () => {
+    xtest("consecutive strikes each get the two roll bonus", () => {
       const rolls = [10, 10, 10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => {
@@ -210,7 +210,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(81);
     });
 
-    test("a strike in the last frame gets a two roll bonues that is counted once", () => {
+    xtest("a strike in the last frame gets a two roll bonues that is counted once", () => {
       const rolls = [
         0,
         0,
@@ -241,7 +241,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(18);
     });
 
-    test("rolling a spare with the two roll bonus does not get a bonus roll", () => {
+    xtest("rolling a spare with the two roll bonus does not get a bonus roll", () => {
       const rolls = [
         0,
         0,
@@ -272,7 +272,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(20);
     });
 
-    xtest("strikes with the two roll bonus do not get bonus rolls", () => {
+    test("strikes with the two roll bonus do not get bonus rolls", () => {
       const rolls = [
         0,
         0,
@@ -343,7 +343,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(300);
     });
   });
-  //test worked
+  //xtest worked
   describe("Check game rules.", () => {
     xtest("rolls can not score negative points", () => {
       const bowling = new Bowling();
