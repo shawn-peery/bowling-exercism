@@ -201,7 +201,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(26);
     });
 
-    xtest("consecutive strikes each get the two roll bonus", () => {
+    test("consecutive strikes each get the two roll bonus", () => {
       const rolls = [10, 10, 10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => {
