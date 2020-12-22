@@ -32,7 +32,7 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(0);
     });
 
-    xtest("should be able to score a game with no strikes or spares", () => {
+    test("should be able to score a game with no strikes or spares", () => {
       const rolls = [
         3,
         6,
