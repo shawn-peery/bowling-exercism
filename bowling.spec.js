@@ -343,7 +343,6 @@ describe("Bowling", () => {
       expect(bowling.score()).toEqual(300);
     });
   });
-  //xtest worked
   describe("Check game rules.", () => {
     test("rolls can not score negative points", () => {
       const bowling = new Bowling();
