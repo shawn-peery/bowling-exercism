@@ -2,7 +2,7 @@ import { Bowling } from "./bowling";
 
 describe("Bowling", () => {
   describe("Check game can be scored correctly.", () => {
-    xtest("should be able to score a game with all zeros", () => {
+    test("should be able to score a game with all zeros", () => {
       const rolls = [
         0,
         0,
